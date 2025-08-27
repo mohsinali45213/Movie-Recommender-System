@@ -2,6 +2,7 @@ import streamlit as st
 import pickle
 import pandas as pd
 import requests
+import os
 
 # Function to fetch poster from TMDB API
 def fetch_poster(movie_id):
@@ -33,8 +34,9 @@ def recommended(movie):
     return recommended_movie_names, recommended_movie_posters
 
 # Load data
-similarity = pickle.load(open('../models/similarity.pkl', 'rb'))
-movie_dict = pickle.load(open('../models/movies.pkl', 'rb'))
+BASE_PATH = os.path.join(os.getcwd(), 'models')
+similarity = pickle.load(open(os.path.join(BASE_PATH, 'similarity.pkl'), 'rb'))
+movie_dict = pickle.load(open(os.path.join(BASE_PATH, 'movies.pkl'), 'rb'))
 movies = pd.DataFrame.from_dict(movie_dict)
 
 # Streamlit UI
